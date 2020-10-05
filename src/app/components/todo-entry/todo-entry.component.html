@@ -1,0 +1,51 @@
+<form [formGroup]="form"
+      (ngSubmit)="submit()">
+  <div class="field-container">
+    <mat-form-field hintLabel="Max of 200 characters"
+                    appearance='fill'>
+      <mat-label>Enter your Task</mat-label>
+      <input matInput
+             formControlName="name"
+             placeholder="Take out the trash">
+      <mat-hint align="end">
+        <span *ngIf="name.errors?.required">This is required</span>
+        <span *ngIf="name.errors?.maxlength">This is too long. Make it less than
+          {{ name.errors.maxlength.requiredLength }}</span>
+      </mat-hint>
+    </mat-form-field>
+  </div>
+  <div>
+    <mat-form-field class="example-full-width"
+                    appearance="fill">
+      <mat-label>Due Date:</mat-label>
+      <input matInput
+             type="datetime"
+             [matDatepicker]="picker"
+             formControlName="dueDate">
+      <mat-datepicker #picker></mat-datepicker>
+      <mat-datepicker-toggle [for]="picker">
+        <mat-icon matDatepickerToggleIcon>keyboard_down_arrow</mat-icon>
+      </mat-datepicker-toggle>
+    </mat-form-field>
+  </div>
+  <div>
+    <mat-form-field appearance="fill">
+      <mat-label>Project</mat-label>
+      <mat-select formControlName="project">
+        <mat-option value=""></mat-option>
+        <mat-option *ngFor="let project of projects$ | async"
+                    value="{{project.id}}">
+          {{project.name}}</mat-option>
+
+
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div>
+    <button mat-button
+            [disabled]="form.invalid"
+            (click)="submit()">Submit</button>
+    <button mat-button
+            (click)="cancel()">Cancel</button>
+  </div>
+</form>
