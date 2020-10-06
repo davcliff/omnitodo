@@ -20,8 +20,16 @@ export class DashboardComponent implements OnInit {
       if (params.display === 'inbox') {
         this.showInbox();
       }
+      if (params.display === 'project') {
+        this.showProject(params.id);
+      }
 
     });
+  }
+
+  showProject(id: string): void {
+    const dlg = this.dialogService.open(ListComponent, { disableClose: false, data: { perspective: 'Project', id } });
+    dlg.afterClosed().subscribe(() => this.router.navigate(['dashboard']));
   }
 
   showInbox(): void {

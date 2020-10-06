@@ -31,6 +31,10 @@ import { ProjectsComponent } from './components/projects/projects.component';
 import { MatChipsModule } from '@angular/material/chips';
 import { ListComponent } from './components/list/list.component';
 import { MatDialogModule } from '@angular/material/dialog';
+
+import { DateOrPipe } from './pipes/date-or';
+import { DatePipe } from '@angular/common';
+import { StringOrPipe } from './pipes/string-or';
 const materialModules = [
   MatDialogModule,
   MatSidenavModule,
@@ -58,7 +62,10 @@ const materialModules = [
     ForecastComponent,
     InboxComponent,
     ProjectsComponent,
-    ListComponent
+    ListComponent,
+    DateOrPipe,
+    StringOrPipe
+
   ],
   imports: [
     BrowserModule,

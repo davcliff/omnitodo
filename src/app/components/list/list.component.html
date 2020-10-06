@@ -1,28 +1,29 @@
-<div style="width: 800px">
+<div>
 
-  <h3>Your {{perspective}}</h3>
-  <div *ngFor="let item of items$ | async">
-    <span>
-      {{item.name}}
-    </span>
-    <span class="bar">|</span>
-    <span>
-      {{ item.project }}
-    </span>
-    <span class="bar">|</span>
-    <span>
-      {{ item.dueDate }}
-    </span>
-    <span class="bar">|</span>
-    <button mat-button
-            *ngIf="item.completed === false">
-      <mat-icon>radio_button_unchecked</mat-icon>
-    </button>
-    <button mat-button
-            *ngIf="item.completed === true">
-      <mat-icon>radio_button_checked</mat-icon>
-    </button>
-  </div>
-  <mat-divider></mat-divider>
 
+  <h3>Your {{(perspective$ | async)?.perspectiveName}}</h3>
+  <h4 *ngIf="(perspective$ | async)?.items?.length === 0">Congratulations! You have no items in
+    {{(perspective$ | async)?.perspectiveName}} </h4>
+
+  <table style="width: 800px">
+    <thead>
+      <th>Name</th>
+      <th>Due Date</th>
+      <th>Project</th>
+      <th>Completed</th>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of (perspective$ | async)?.items">
+        <td>{{ item.name }}</td>
+        <td> {{ item.dueDate | dateOr:'No Due Date' }}</td>
+        <td> {{ item.project | stringOr:'No Project' }} </td>
+        <td>
+          <button mat-button
+                  (click)="markComplete(item)">
+            <mat-icon>radio_button_unchecked</mat-icon>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>

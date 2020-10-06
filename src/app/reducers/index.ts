@@ -1,5 +1,5 @@
 import { ActionReducerMap, createSelector } from '@ngrx/store';
-import { ProjectListModel, TodoListModel } from '../models';
+import { ProjectListModel, TodoListModel, ProjectListItemModel, PerspectiveModel } from '../models';
 import * as fromProjects from './projects.reducer';
 import * as fromTodos from './todos.reducer';
 
@@ -35,7 +35,6 @@ const selectTodoListItemsUnfiltered = createSelector(
   selectAllIncompleteTodoEntities,
   selectProjectItems,
   (todos, projects) => {
-    console.log({ todos, projects });
     return todos.map(todo => {
       return {
         ...todo,
@@ -46,13 +45,32 @@ const selectTodoListItemsUnfiltered = createSelector(
 );
 // Any selectors your components need.
 
+export const selectProjectTodoList = createSelector(
+  selectTodoListItemsUnfiltered,
+  selectProjectItems,
+  (todos, projects, props) => {
+    const pName = projects[props.id].name;
+    return {
+      perspectiveName: pName + ' Project',
+      items: todos.filter(todo => todo.project === pName)
+    } as PerspectiveModel;
+  }
+);
+
 export const selectInboxTodoList = createSelector(
   selectTodoListItemsUnfiltered,
-  (todos) => todos.filter(isInboxItem)
+  (todos) => {
+    return {
+      perspectiveName: 'Inbox',
+      items: todos.filter(isInboxItem)
+    } as PerspectiveModel;
+  }
 );
 
 // TODO: We need a selector for the TodoEntry component that
 //       gives us a ProjectListModel[]
+
+
 
 export const selectProjectListModel = createSelector(
   selectAllProjectEntities,
@@ -68,3 +86,18 @@ export const selectInboxCount = createSelector(
 function isInboxItem(todo: TodoListModel): boolean {
   return !todo.dueDate && !todo.project;
 }
+
+export const selectProjectListWithCount = createSelector(
+  selectAllIncompleteTodoEntities,
+  selectAllProjectEntities,
+  (todos, projects) => {
+
+    return projects.map(project => {
+      const numberOfItemsWithThatProject = todos.filter(todo => todo.project === project.id).length;
+      return {
+        ...project,
+        numberOfProjects: numberOfItemsWithThatProject
+      } as ProjectListItemModel;
+    });
+  }
+);
