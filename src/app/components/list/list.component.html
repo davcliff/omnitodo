@@ -1,1 +1,28 @@
-<p>list works!</p>
+<div style="width: 800px">
+
+  <h3>Your {{perspective}}</h3>
+  <div *ngFor="let item of items$ | async">
+    <span>
+      {{item.name}}
+    </span>
+    <span class="bar">|</span>
+    <span>
+      {{ item.project }}
+    </span>
+    <span class="bar">|</span>
+    <span>
+      {{ item.dueDate }}
+    </span>
+    <span class="bar">|</span>
+    <button mat-button
+            *ngIf="item.completed === false">
+      <mat-icon>radio_button_unchecked</mat-icon>
+    </button>
+    <button mat-button
+            *ngIf="item.completed === true">
+      <mat-icon>radio_button_checked</mat-icon>
+    </button>
+  </div>
+  <mat-divider></mat-divider>
+
+</div>

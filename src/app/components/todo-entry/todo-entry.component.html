@@ -1,5 +1,4 @@
-<form [formGroup]="form"
-      (ngSubmit)="submit()">
+<form [formGroup]="form">
   <div class="field-container">
     <mat-form-field hintLabel="Max of 200 characters"
                     appearance='fill'>
@@ -36,8 +35,6 @@
         <mat-option *ngFor="let project of projects$ | async"
                     value="{{project.id}}">
           {{project.name}}</mat-option>
-
-
       </mat-select>
     </mat-form-field>
   </div>

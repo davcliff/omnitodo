@@ -35,13 +35,15 @@ export class TodoEntryComponent implements OnInit {
   }
 
   get name(): AbstractControl { return this.form.get('name'); }
+
   cancel(): void {
     this.bottomSheetRef.dismiss();
   }
 
   submit(): void {
     // validate the data
-    // dispatch an action to the store, etc.
+    // tslint:disable-next-line: no-console
+    console.log(this.form.value);
     this.store.dispatch(todoAdded({ ...this.form.value }));
     this.bottomSheetRef.dismiss();
   }

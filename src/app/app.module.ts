@@ -21,8 +21,6 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-import { MatChipsModule } from '@angular/material/chips';
-import { MatDialogModule } from '@angular/material/dialog';
 
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
@@ -30,8 +28,9 @@ import { reducers } from './reducers';
 import { ForecastComponent } from './components/forecast/forecast.component';
 import { InboxComponent } from './components/inbox/inbox.component';
 import { ProjectsComponent } from './components/projects/projects.component';
+import { MatChipsModule } from '@angular/material/chips';
 import { ListComponent } from './components/list/list.component';
-
+import { MatDialogModule } from '@angular/material/dialog';
 const materialModules = [
   MatDialogModule,
   MatSidenavModule,
