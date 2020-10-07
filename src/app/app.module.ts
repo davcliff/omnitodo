@@ -35,6 +35,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { DateOrPipe } from './pipes/date-or';
 import { DatePipe } from '@angular/common';
 import { StringOrPipe } from './pipes/string-or';
+import { LoginComponent } from './components/login/login.component';
 const materialModules = [
   MatDialogModule,
   MatSidenavModule,
@@ -64,7 +65,8 @@ const materialModules = [
     ProjectsComponent,
     ListComponent,
     DateOrPipe,
-    StringOrPipe
+    StringOrPipe,
+    LoginComponent
 
   ],
   imports: [

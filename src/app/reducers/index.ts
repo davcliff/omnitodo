@@ -2,15 +2,18 @@ import { ActionReducerMap, createSelector } from '@ngrx/store';
 import { ProjectListModel, TodoListModel, ProjectListItemModel, PerspectiveModel } from '../models';
 import * as fromProjects from './projects.reducer';
 import * as fromTodos from './todos.reducer';
+import * as fromAuth from './auth.reducer';
 
 export interface AppState {
   projects: fromProjects.ProjectState;
   todos: fromTodos.TodoState;
+  auth: fromAuth.AuthState;
 }
 
 export const reducers: ActionReducerMap<AppState> = {
   projects: fromProjects.reducer,
-  todos: fromTodos.reducer
+  todos: fromTodos.reducer,
+  auth: fromAuth.reducer
 };
 
 // Selectors are function that know how to efficiently get the
@@ -20,6 +23,7 @@ export const reducers: ActionReducerMap<AppState> = {
 
 const selectProjectsBranch = (state: AppState) => state.projects;
 const selectTodosBranch = (state: AppState) => state.todos;
+const selectAuthBranch = (state: AppState) => state.auth;
 
 // Any "helper" Selectors
 
@@ -100,4 +104,20 @@ export const selectProjectListWithCount = createSelector(
       } as ProjectListItemModel;
     });
   }
+);
+
+
+export const selectAuthIsLoggedIn = createSelector(
+  selectAuthBranch,
+  b => b.isLoggedIn
+);
+
+export const selectAuthUserName = createSelector(
+  selectAuthBranch,
+  b => b.username
+);
+
+export const selectAuthToken = createSelector(
+  selectAuthBranch,
+  b => b.token
 );
